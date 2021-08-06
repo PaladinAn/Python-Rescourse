@@ -265,3 +265,34 @@
             填入空值:
               fillna()
               data.fillna(0)   填入 0  (補0)
+
+#跨年度-Panel資料-階層式
+        建立multi-index
+          index = pd.MultiIndex.from_tuples(index)
+        查看之前的資料
+          pop = pop.reindex(index)
+          查看  pop[;, 年度]
+          
+        轉換 年標籤，轉到上方 .unstack()
+          pop_df = pop.unstack()
+          
+        轉回來，             .stack()
+          pop_df.stack()
+          
+        加入新欄位
+          pop_df = pd.DataFrame({'total': pop, 'under18': [9267089, 9284094, 4687374, 4318033, 5906301, 6879014]})
+          
+          
+        建立方法2
+          df = pd.DataFrame(np.random.rand(4, 2),
+                  index=[['a', 'a', 'b', 'b'], [1, 2, 1, 2]],
+                  columns=['data1', 'data2'])
+                  
+           		    data1	data2
+         a	1	0.554233	0.356072
+            2	0.925244	0.219474
+         b	1	0.441759	0.610054
+            2	0.171495	0.886688       
+            
+            
+          
