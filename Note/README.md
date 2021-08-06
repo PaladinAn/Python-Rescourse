@@ -138,5 +138,61 @@
                                   [0 ,1, 4, 5, 5, 9]) 
          ------------------------------------------------                         
   Pandas
-    
-                 
+    1維 Serise()
+        area_dict = {'California': 423967, 'Texas': 695662, 'New York': 141297,
+             'Florida': 170312, 'Illinois': 149995}
+        area = pd.Series(area_dict)
+                                 =>            California    423967
+                                               Florida       170312
+                                               Illinois      149995
+                                               New York      141297
+                                               Texas         695662
+
+    2維 DataFrame
+        states = pd.DataFrame({'population': population,
+                       'area': area})
+                                =>            
+                                	                    area	population
+                                      California  	423967	38332521
+                                      Florida	      170312	19552860
+                                      Illinois  	  149995	12882135
+                                      New York	    141297	19651127
+                                      Texas	        695662	26448193
+                                      
+      .index   取得 標籤
+      .cloumns 取得 欄標籤(上面橫排)
+      建立，DataFrame
+        pd.DataFrame(population, columns=['population'])
+                          =>	            population
+                              California	38332521
+                                 Florida	19552860
+                                Illinois	12882135
+                                New York	19651127
+                                   Texas	26448193
+       From a list of dicts 建立
+          data = [{'a': i, 'b': 2 * i}
+          for i in range(3)]
+          pd.DataFrame(data)
+                                    	a 	b
+                                   0  0   0
+                                   1  1   2
+                                   2	2 	4
+       From a dictionary of Series objects
+          pd.DataFrame({"population": population, "area": area})
+          
+                           	        area	population
+                      California	423967	38332521
+                         Florida	170312	19552860
+                        Illinois	149995	12882135
+                        New York	141297	19651127
+                           Texas	695662	26448193 
+                           
+       From 2維 NumPy array
+       pd.DataFrame(np.random.rand(3, 2), columns=['foo', 'bar'], index=['a', 'b', 'c'])
+                                   
+                                     foo  bar
+                            a 	0.865257	0.213169
+                            b 	0.442759	0.108267
+                            c 	0.047110	0.905718
+                            
+                            
