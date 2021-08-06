@@ -294,5 +294,19 @@
          b	1	0.441759	0.610054
             2	0.171495	0.886688       
             
-            
-          
+        加入索引   左邊標籤   index = pd.MultiIndex.from_product()
+            index = pd.MultiIndex.from_product([[2013, 2014], [1, 2]],
+                                   names=['year', 'visit'])
+                                   
+        加入欄     上方標籤    columns = pd.MultiIndex.from_product()
+            columns = pd.MultiIndex.from_product([['Bob', 'Guido', 'Sue'], ['HR', 'Temp']],
+                                     names=['subject', 'type'])
+          再建立DF
+          data = np.round(np.random.randn(4, 6), 1)
+          data[:, ::2] *= 10
+          data += 37
+          health_data = pd.DataFrame(data, index=index, columns=columns)
+        
+        ##索引必須經過排序，才能進行，切片 :
+            解決方案，運行  sort_index()
+                
