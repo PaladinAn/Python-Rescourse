@@ -309,4 +309,113 @@
         
         ##索引必須經過排序，才能進行，切片 :
             解決方案，運行  sort_index()
+                        
+        索引的設定與重設   .reset_index()
+          #op_flat = pop.reset_index(name='population')
+          	state	    year	population
+        0	California	2000	33871648
+        1	California	2010	37253956
+        2	New York	2000	18976457
+        3	New York	2010	19378102
+        4	Texas	2000	20851820
+        5	Texas	2010	25145561
+          #pop_flat.set_index(['state', 'year'])      設定索引
+	                     population
+            state	year	
+      California	2000	33871648
+                  2010	37253956
+         New York	2000	18976457
+                  2010	19378102
+            Texas	2000	20851820
+                  2010	25145561
+                  
+       Panda 串接   pd.concat([], [])
+                  串横的   axis=1 = axis="col"
+                  串上下的 axis=0 (預設)
+                打法 pd.concat([], axis=0)
                 
+             避免，串接發生錯誤
+                設定  ignore_index=True
+                打法 pd.concat([], axis=0, ignore_index=True)
+                     display('x', 'y', 'pd.concat([x, y], ignore_index=True)')
+                     pd.concat([x, y], ignore_index=True)
+                     
+                或，改成階層式
+                  display('x', 'y', "pd.concat([x, y], keys=['x', 'y'])")
+                    pd.concat([x, y], keys=['x', 'y'])
+                    
+              兩個 DataFrame 串接    pd.concat()，沒有資料會補NA值
+                  df5 = make_df('ABC', [1, 2])
+                  df6 = make_df('BCD', [3, 4])
+                    display('df5', 'df6', 'pd.concat([df5, df6])')
+                    
+                 pd.concat([df5, df6])
+                 
+                若要比免NA值，設定參數  , join="inner"  刪除有NA值的部分
+                  pd.concat([df5, df6], join='inner')
+                  
+                  指定刪除欄位   join_axes=[df5.columns]
+               
+               另類，串接法  .append()    ##不會變更原來的物件
+                    df1.append(df2)    把df2串在df1下面
+            
+            合併資料   pd.merge()：括號內作業        .join() ：把括號內的東西，放到點前面的裡面
+             
+             一對一： df3 = pd.merge(df1, df2)     pd.merge() 可以辨識關鍵欄位        (一個相同部位)
+             多對一： pd.merge(df3, df4)           pd.merge() 有時候會有重複的項目出現 (多個相同部位合併)
+             多對多： pd.merge(df1, df5)           pd.merge()
+              
+              為了，避免錯誤，可以使用，關鍵字 參數  on="上方欄位名稱"
+                    打法： pd.merge(df1, df2, on='employee')
+                    
+                    如果，想捨棄，不必要的欄位， 使用 .drop()
+                      打法：pd.merge(df1, df3, left_on="employee", right_on="name").drop('name', axis=1)
+              想合併，指定欄位
+                pd.merge(df1, df3, left_on="employee", right_on="name")
+         
+         統計描述： 資料.dropna().describe()
+         
+          自動重組......切割、套用、合併，綜合運算  .groupby("索引")
+                要求欄位，      .groupby("索引") .aggregate(['min', np.median, max])
+                      data1	       data2
+          min	median	max	min	median	max
+      key						
+        A  0	1.5	   3	  3	   4.0  	5
+        B	 1	2.5    4	  0    3.5  	7
+        C	 2	3.5	   5	  3	   6.0	  9
+        
+        過濾
+          def filter_func(x):
+              return x['data2'].std() > 4
+              
+              df.groupby('key').std()
+              df.groupby('key').filter(filter_func)
+              
+       Grouping example  (綜合打法)
+       
+        decade = 10 * (planets['year'] // 10)
+        decade = decade.astype(str) + 's'
+        decade.name = 'decade'
+        planets.groupby(['method', decade])['number'].sum().unstack().fillna(0)
+        
+        titanic.groupby(['sex', 'class'])['survived'].aggregate('mean').unstack()
+        
+        樞紐分析   
+                資料 .pivot_table('survived', index='sex', columns='class')
+                                   整個表數據    欄位名稱     欄位
+        多層的樞紐分析 
+                age = pd.cut(titanic['age'], [0, 18, 80])
+                titanic.pivot_table('survived', ['sex', age], 'class')
+                                    整個表數據    欄位名稱     欄位
+        時間做索引
+          index = pd.DatetimeIndex(['2014-07-04', '2014-08-04', '2015-07-04', '2015-08-04'])
+          data = pd.Series([0, 1, 2, 3], index=index)
+          
+          時間系列，資料結構
+                   pd.to_datetime()
+                   dates = pd.to_datetime([datetime(2015, 7, 3), '4th of July, 2015', '2015-Jul-6', '07-07-2015', '20150708'])
+          
+           規律時間 pd.date_range()
+              打法 pd.date_range('2015-07-03', '2015-07-10')   會給7/3~7/10
+                    pd.date_range('2015-07-03', periods=8)
+                  
