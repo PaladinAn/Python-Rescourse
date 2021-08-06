@@ -194,5 +194,74 @@
                             a 	0.865257	0.213169
                             b 	0.442759	0.108267
                             c 	0.047110	0.905718
-                            
-                            
+        
+        data['a':'c']
+        a    0.25
+        b    0.50
+        c    0.75
+        切片
+          data[0: 2]
+            a    0.25
+            b    0.50
+        遮罩
+          data[(data > 0.3) & (data < 0.8)]
+            b    0.50
+            c    0.75
+        
+        DataFrame  1維，看欄位
+          data.欄位名稱    =>  data.area
+          
+                            California    423967
+                            Florida       170312
+                            Illinois      149995
+                            New York      141297
+                            Texas         695662
+        DataFrame  2維，看欄位，
+          用iloc，切出來
+                     data.iloc[:3, :2]
+                	area	pop
+  California	  423967	38332521
+  Florida	      170312	19552860
+  Illinois	    149995	12882135
+          用loc，指名到多少              
+                     data.loc[:'Illinois', :'pop']
+          	    area    	pop
+ California	  423967	38332521
+ Florida  	  170312	19552860
+ Illinois	    149995	12882135
+ 
+        DataFrame   
+          對齊 A B
+          A = pd.DataFrame(rng.randint(0, 20, (2, 2)), columns=list('AB'))
+          對齊 B A C
+          B = pd.DataFrame(rng.randint(0, 10, (3, 3)), columns=list('BAC'))
+          
+          在缺失值上，填入所有值的平均數
+            fill = A.stack().mean()
+            A.add(B, fill_value=fill)
+          
+          處裡缺失值(NaN)    NaN為一個，浮點數值
+            # Null 值處理
+            isnull(): 產生布林遮罩
+           notnull(): 與 isnull()相反的操作
+            dropna(): 回傳一個，過濾過，版本的資料
+            fillna(): 回傳一個，有被填入，估算缺失值，的資料
+            
+            偵測空值:
+              data = pd.Series([1, np.nan, 'hello', None])
+              法1  data.isnull()
+              法2  data[data.notnull()]
+              
+            拋棄空值:
+            任何空值
+                .dropna()
+            移除，欄或行，的空值  axis=1(直的)
+                df.dropna(axis='columns')
+            移除，欄或行，且全部都空值，才移除      使用參數 how='all'
+                df.dropna(axis='columns', how='all')
+            指定多少空值才被保留                          thresh=
+                df.dropna(axis='rows', thresh=3)
+            
+            填入空值:
+              fillna()
+              data.fillna(0)   填入 0  (補0)
