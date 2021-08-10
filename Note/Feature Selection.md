@@ -34,6 +34,6 @@
     X_new = fs.SelectKBest(fs.chi2, k=3).fit_transform(X, y)        現在有4個特徵，但我只要3個特徵
     
     X_new = fs.SelectPercentile(fs.mutual_info_classif, percentile = 50).fit_transform(X, y)
-                                                                      取前50%
+                                                                       取前 50%
     
     Recursive feature elimination, Feature selection using SelectFromModel
