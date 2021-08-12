@@ -15,10 +15,35 @@
   如果目標為連續型資料，則改採對每個學習器的結果取平均。
 ------------------------------------------
  #  How to do?
-  引入套件
+    引入套件
   
-  from sklearn.ensemble import BaggingClassifier
-  from sklearn import datasets
-  from sklearn.model_selection import train_test_split
-  import matplotlib.pyplot as plt
-  %matplotlib inline
+  
+      from sklearn.ensemble import BaggingClassifier
+      from sklearn import datasets
+      from sklearn.model_selection import train_test_split
+      import matplotlib.pyplot as plt
+      %matplotlib inline
+
+    下載資料集
+     iris=datasets.load_iris()
+     X=iris.data
+     y=iris.target
+
+    區分訓練集與測試集
+     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
+     
+     Bagging
+    引入子模型套件
+    from sklearn import tree
+    from sklearn import svm
+    from sklearn.naive_bayes import GaussianNB
+
+    選擇子模型
+     clf=GaussianNB()
+
+     Bagging
+     bagging=BaggingClassifier(base_estimator=clf, n_estimators=10,
+     bootstrap=True, bootstrap_features=True, max_features=3, max_samples=0.7)
+     bagging.fit(X_train, y_train)
+     bagging.predict(X_test)
+     bagging.score(X_test, y_test)
