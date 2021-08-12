@@ -5,8 +5,8 @@ import pandas as pd
 # 
 # -----------------------------------
 # 
-train = pd.read_csv('../input/ch01-titanic/train.csv')
-test = pd.read_csv('../input/ch01-titanic/test.csv')
+train = pd.read_csv('..train.csv')
+test = pd.read_csv('..test.csv')
 
 # 取出，訓練資料的特徵和標籤
 train_x = train.drop(['Survived'], axis=1)
