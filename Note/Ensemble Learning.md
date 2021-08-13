@@ -61,7 +61,7 @@
   -----------------------
   最後，而在Boosting裡面則是菁英體制，準確度高的給予較高權重。
   -----------------------
-  缺點：也很容易受到極值影響
+  缺點：很容易受到極值影響
   -----------------------
    #  Bagging 與 Boosting的主要差異
                 Bagging	                       Boosting
@@ -84,7 +84,7 @@
       from sklearn.ensemble import GradientBoostingClassifier
 
     下載資料
-      資料的部分，大家可以採用自己的真實資料，將格式分別整理成特徵及標籤兩個部分即可。在這邊，那我們採用sklearn裡面所提供的鳶尾花資料集。
+      資料的部分，將格式分別整理成特徵及標籤兩個部分即可。在這邊，採用sklearn裡面所提供的鳶尾花資料集。
 
       from sklearn import datasets
       iris=datasets.load_iris()
