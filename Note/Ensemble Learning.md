@@ -126,3 +126,65 @@
     n_estimators: 子模型數量
     learning_rate: 子模型縮減係數
 
+# 結合不同類型的弱學習器 Voting!
+---------------------------------------------------------------------
+  想要結合不同類型的弱學習器時，可以透過sklear.ensemble套件裡，所提供的voting方法來運行
+  ----------------------------------------------------------------------------
+  VotingClassifier  適合用在分類問題。
+  ------------------------------------------------------------------------
+  VotingRegressor   適合用在連續型資料。
+------------------------------------------
+ #  How to do?
+ ----------------------------------------
+   因鳶尾花屬於分類問題，故我們這邊引入VotingClassifier
+   -----------------------------------------------
+    引入套件及資料
+      from sklearn.ensemble import VotingClassifier
+      from sklearn import datasets
+      from sklearn.model_selection import train_test_split
+      import matplotlib.pyplot as plt
+      %matplotlib inline
+    將樣本區分為訓練集以及測試集
+      iris=datasets.load_iris()
+      X=iris.data
+      y=iris.target
+      X_train, X_test, y_train, y_test = train_test_split(X, y,test_size=0.3,random_state=0)
+  # Voting  
+  ---------------------------
+    進行Voting主要有三個步驟
+    ----------------------------
+    第一步引入我們想要使用的子模型套件
+    -------------------------------
+    第二步將這些模型存成一個list
+    ------------------------------
+    建模
+    -------------------------------
+    
+    引入子模型套件:
+      from sklearn.svm import SVC
+      from sklearn.tree import DecisionTreeClassifier
+      from sklearn.naive_bayes import GaussianNB
+    
+    將子模型存成list:
+      model_list=[]
+      m1=SVC()
+      model_list.append(('svm',m1))
+      m2=DecisionTreeClassifier()
+      model_list.append(('DT',m2))
+      m3=GaussianNB()
+      model_list.append(('NB',m3))
+      vc=VotingClassifier(model_list)
+    --------------------------------------
+   # 建模:
+    --------------------------------------
+    vc.fit(X_train,y_train)
+    --------------------------------------
+   # 預測:
+    --------------------------------------
+    vc.predict(X_test)
+    --------------------------------------
+   # 準確度評比:
+    --------------------------------------
+    vc.score(X_test,y_test)
+    --------------------------------------
+    
