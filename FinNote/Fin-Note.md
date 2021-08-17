@@ -1,2 +1,2 @@
-# 安裝 twstock 套件
-  pip install twstock
+# 準備工作：安裝 twstock 套件
+##  pip install twstock
