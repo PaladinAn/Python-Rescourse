@@ -1,6 +1,7 @@
 # pip install xgboost
 ------------------------
-#  01-titanic
-#  02-01-metrics       評價指標
-#  02-02-custom-usage  自定義評價
-#  02-03-optimize      最佳化閾値
+#  titanic       
+#  metrics       評價指標
+#  custom-usage  自定義評價
+#  optimize      最佳化閾値
+#  optimize-cv-out-of-fold 切割出保留組，再進行最佳化
