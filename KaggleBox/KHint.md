@@ -6,3 +6,4 @@
 #  optimize      最佳化閾値
 #  optimize-cv-out-of-fold 切割出保留組，再進行最佳化
 #  custom-function  取代MAE：當斜率不連續、二階微分=0
+#  numerical     標準化
