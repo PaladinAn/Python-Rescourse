@@ -78,7 +78,7 @@ test_x[num_cols] = scaler_test.transform(test_x[num_cols])
 # Min-Max 縮放方法，統一變數的尺度 (資料轉換)
 # 優點：平均不會剛好是0、不太受極端質影響；線性轉換，不會改變特徵分布的形狀
 # -----------------------------------
-# データの読み込み
+# 
 train_x, test_x = load_data()
 # -----------------------------------
 from sklearn.preprocessing import MinMaxScaler
