@@ -45,5 +45,3 @@
   ### ⑥用KNN進行填充
         from fancyimpute import BiScaler, KNN, NuclearNormMinimization, SoftImpute
         dataset = KNN(k=3).complete(dataset)
-
-#### 參考資料:https://blog.csdn.net/overfit/article/details/79856417
